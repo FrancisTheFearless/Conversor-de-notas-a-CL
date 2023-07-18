@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Conversor de notas a chileno</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #202020;
+            padding: 50px;
+            color: #F5F5F5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #282828;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        }
+        .title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .conversion-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+        .grade-input,
+        #grade-output {
+            flex: 1;
+            height: 40px;
+            padding: 0 10px;
+            margin: 0 10px;
+            font-size: 16px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            background-color: #333;
+            color: #F5F5F5;
+        }
+        #grade-output {
+            text-align: center;
+        }
+        .convert-button {
+            font-size: 16px;
+            padding: 10px;
+            margin-top: 20px;
+            width: 100%;
+            background-color: #4CAF50;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .convert-button:hover {
+            background-color: #45a049;
+        }
+                /* Estilos para la tabla de escalas */
+                .grade-table {
+                    width: 100%;
+                    margin-top: 40px;
+                    border-collapse: collapse;
+                    font-size: 16px;
+                }
+                .grade-table th,
+                .grade-table td {
+                    padding: 10px 20px;
+                    text-align: left;
+                    border-bottom: 1px solid #7b7b7b;
+                }
+                .grade-table th {
+                    background-color: #474747;
+                    border-top: 1px solid #646464;
+                    border-bottom: 2px solid #646464;
+                }
+                .grade-table tbody tr:hover {
+                    background-color: #9e9e9e;
+                }
+                /* Para centrar la tabla verticalmente */
+                .table-container {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 50vh;
+                }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Conversor de notas a chileno 🇨🇱</h1>
+        <div class="conversion-container">
+            <select id="country-select" class="grade-input">
+                <option value="es">España</option>
+                <option value="us">Estados Unidos</option>
+                <option value="br">Brasil</option>
+                <option value="uk">Inglaterra</option>
+                <option value="dk">Dinamarca</option>
+                <option value="no">Noruega</option>
+            </select>
+            <input id="grade-input" class="grade-input" type="number" min="0" max="10" step="0.1" placeholder="Introduce la nota">
+            <button class="convert-button" onclick="convertGrade()">Convertir</button>
+            <input id="grade-output" readonly>
+        </div>
+
+    <div class="table-container">
+        <!-- Tabla de escalas -->
+        <table class="grade-table">
+            <thead>
+                <tr>
+                    <th>País</th>
+                    <th>Escala de Notas</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>España</td>
+                    <td>1 - 10</td>
+                </tr>
+                <tr>
+                    <td>Estados Unidos</td>
+                    <td>0 - 4 (GPA)</td>
+                </tr>
+                <tr>
+                    <td>Brasil</td>
+                    <td>0 - 10</td>
+                </tr>
+                <tr>
+                    <td>Inglaterra</td>
+                    <td>0 - 100 (%)</td>
+                </tr>
+                <tr>
+                    <td>Dinamarca</td>
+                    <td>0 - 12</td>
+                </tr>
+                <tr>
+                    <td>Noruega</td>
+                    <td>1 - 6</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    function convertGrade() {
+        var gradeInput = document.getElementById('grade-input').value;
+        var country = document.getElementById('country-select').value;
+        var gradeOutput;
+
+        var maxGrade = {
+            'es': 10,  // España
+            'us': 4,   // Estados Unidos
+            'br': 10,  // Brasil
+            'uk': 100, // Reino Unido
+            'dk': 12,  // Dinamarca
+            'no': 6    // Noruega
+        };
+
+        var maxGradeChile = 7; // Escala en Chile
+
+        gradeOutput = (gradeInput / maxGrade[country]) * maxGradeChile;
+        document.getElementById('grade-output').value = gradeOutput.toFixed(2);
+    }
+</script>
+
+</body>
+</html>
